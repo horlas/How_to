@@ -97,12 +97,17 @@ class UserProfile(models.Model):
 
             super(UserProfile, self).save()
 
-            # delete the upload of avatar before resize it
+			# delete the upload of avatar before resize it
             os.remove(upload_image)
 
+            # delete old image file
+            if self.tracker.previous('avatar'):
+                old_avatar = '{}{}'.format(settings.MEDIA_ROOT, self.tracker.previous('avatar'))
+                os.remove(old_avatar)
+
         # delete old image file even in case of "clear" image action
-        if self.tracker.previous('avatar'):
-            old_avatar = '{}{}'.format(settings.MEDIA_ROOT, self.tracker.previous('avatar'))
+        if not self.avatar and self.tracker.has_changed('avatar'):
+            old_avatar = '{}{}'.format(settings.MEDIA_ROOT , self.tracker.previous('avatar'))
             os.remove(old_avatar)
             
 ```            
