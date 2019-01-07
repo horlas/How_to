@@ -166,31 +166,4 @@ Template : l'aspect frontend n'est absolument pas mis en valeur, mais le code fo
 
 ``` profile.html ```
 
-```
-{% extends 'core/base.html' %}
-{% load static %}
-
-{% block content %}
-<div class="container">
-    <div class="row">
-        <div class="col s12  ">
-
-<h2>Profil de {{user.userprofile.username}}</h2>
-<h2>email :{{user.email}}</h2>
-<h4>Bio : {{user.userprofile.bio}}</h4>
- {% if user.userprofile.avatar %}
-  <img src="{{ user.userprofile.avatar.url }}" />
- {% else %}
-     <img src="{% static 'core/img/0.jpg' %}" />
- {% endif %}
-
-
-<a href="{% url 'musicians:update_profile' %}" class="waves-effect waves-light btn">button</a>
-</div>
-        </div>
-</div>
-
-{% endblock %}
-
-```
   
